@@ -1,0 +1,32 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: otro-deployment
+  name: otro-deployment
+spec:
+  replicas: 20
+  selector:
+    matchLabels:
+      app: otro-deployment
+  template:
+    metadata:
+      labels:
+        app: otro-deployment
+    spec:
+      containers:
+      - image: ucreativaregistryclase10.azurecr.io/holatest:1.0.0
+        name: python-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otro-service
+spec:
+  type: LoadBalancer
+  ports: 
+    - targetPort: 2000
+      port: 2000
+  selector: 
+     app: otro-deployment
